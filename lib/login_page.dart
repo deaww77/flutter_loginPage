@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _LoginPageState();
-  }
+  State<StatefulWidget> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -21,12 +17,53 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Navigator(
       key: _navigatorKey,
-      onGenerateInitialRoutes: (setting) {
-        return MaterialPageRoute(
-          builder: (context) => Scaffold(
-            body: Center(child: Padding(padding: EdgInsets.all(16.0))),
+      onGenerateInitialRoutes: (navigator, initialRoute) {
+        return [
+          MaterialPageRoute(
+            builder: (context) => Scaffold(
+              body: Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.network(
+                          'https://musicart.xboxlive.com/7/98d95c00-0000-0000-0000-000000000002/504/image.jpg',
+                          width: 150,
+                          height: 150,
+                        ),
+                        const SizedBox(height: 20),
+                        TextFormField(
+                          controller: _usernameController,
+                          decoration: InputDecoration(labelText: 'Username'),
+                        ),
+                        const SizedBox(height: 10),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(labelText: 'Password'),
+                          obscureText: true,
+                        ),
+                        const SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              // ทำบางอย่าง เช่น login
+                              print("Username: ${_usernameController.text}");
+                              print("Password: ${_passwordController.text}");
+                            }
+                          },
+                          child: const Text('Login'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-        );
+        ];
       },
     );
   }
