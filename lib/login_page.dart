@@ -37,19 +37,32 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 20),
                         TextFormField(
                           controller: _usernameController,
-                          decoration: InputDecoration(labelText: 'Username'),
+                          decoration: const InputDecoration(
+                            labelText: 'Username',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your username';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: _passwordController,
                           decoration: InputDecoration(labelText: 'Password'),
                           obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
                         ),
                         const SizedBox(height: 20),
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState?.validate() ?? false) {
-                              // ทำบางอย่าง เช่น login
                               print("Username: ${_usernameController.text}");
                               print("Password: ${_passwordController.text}");
                             }
